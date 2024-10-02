@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace BTHocSinh
 {
@@ -6,86 +7,39 @@ namespace BTHocSinh
     {
         public static int NhapSoLuongSinhVien()
         {
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.InputEncoding = Encoding.UTF8;
+
             int number;
             while (true)
             {
-                Console.Write("Nhập số lượng sinh viên: ");
+                Console.Write("Nhập số lượng Sinh viên: ");
                 string input = Console.ReadLine();
                 if (int.TryParse(input, out number) && number > 0)
-                {
                     break;
-                }
                 else
-                {
-                    Console.WriteLine("Số lượng sinh viên không hợp lệ! Vui lòng nhập lại.");
-                }
+                    Console.WriteLine("Số lượng Sinh viên không hợp lệ! Vui lòng nhập lại.\n");
             }
             return number;
         }
 
         public static HocSinh NhapThongTinHocSinh(int stt)
         {
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.InputEncoding = Encoding.UTF8;
+
             HocSinh hocSinh = new HocSinh();
+            Console.WriteLine($"\n-- Nhập thông tin cho Sinh viên thứ {stt} --");
+
             while (true)
             {
-                Console.Write($"Nhập họ tên sinh viên thứ {stt}: ");
+                Console.Write("Nhập Họ tên Sinh viên: ");
                 string hoTen = Console.ReadLine();
-                try
-                {
-                    hocSinh.HoTen = hoTen;
-                    break;
-                }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            while (true)
-            {
-                Console.Write($"Nhập lớp sinh viên thứ {stt}: ");
-                string lopHoc = Console.ReadLine();
-                try
-                {
-                    hocSinh.LopHoc = lopHoc;
-                    break;
-                }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            hocSinh.DToan = NhapDiem("Toán", stt);
-            hocSinh.DLy = NhapDiem("Lý", stt);
-            hocSinh.DHoa = NhapDiem("Hóa", stt);
-
-            return hocSinh;
-        }
-
-        private static double NhapDiem(string monHoc, int stt)
-        {
-            double diem;
-            while (true)
-            {
-                Console.Write($"Nhập Điểm {monHoc} cho sinh viên thứ {stt}: ");
-                string input = Console.ReadLine();
-                if (double.TryParse(input, out diem))
+                if (!string.IsNullOrWhiteSpace(hoTen))
                 {
                     try
                     {
-                        switch (monHoc.ToLower())
-                        {
-                            case "toán":
-                                hocTemp.DToan = diem;
-                                break;
-                            case "lý":
-                                hocTemp.DLy = diem;
-                                break;
-                            case "hóa":
-                                hocTemp.DHoa = diem;
-                                break;
-                        }
+                        hocSinh.HoTen = hoTen.Trim();
                         break;
                     }
                     catch (ArgumentException ex)
@@ -94,13 +48,62 @@ namespace BTHocSinh
                     }
                 }
                 else
+                    Console.WriteLine("Họ tên không được để trống! Vui lòng nhập lại.\n");
+            }
+
+            while (true)
+            {
+                Console.Write("Nhập Lớp học: ");
+                string lopHoc = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(lopHoc))
                 {
-                    Console.WriteLine($"Điểm {monHoc} không hợp lệ! Vui lòng nhập lại.");
+                    try
+                    {
+                        hocSinh.LopHoc = lopHoc.Trim();
+                        break;
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+                else
+                    Console.WriteLine("Lớp học không được để trống! Vui lòng nhập lại.\n");
+            }
+
+            hocSinh.DToan = NhapDiem("Toán");
+            hocSinh.DLy = NhapDiem("Lý");
+            hocSinh.DHoa = NhapDiem("Hóa");
+
+            return hocSinh;
+        }
+
+        private static double NhapDiem(string monHoc)
+        {
+            double diem;
+            string prompt = $"Nhập Điểm {monHoc}: ";
+
+            while (true)
+            {
+                Console.Write(prompt);
+                string input = Console.ReadLine();
+                if (double.TryParse(input, out diem))
+                {
+                    if (diem >= 0 && diem <= 10)
+                        break;
+                    else
+                    {
+                        Console.WriteLine("\nĐiểm không hợp lệ! Vui lòng nhập lại (0 - 10).\n");
+                        prompt = $"Nhập lại Điểm {monHoc}: ";
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nĐiểm không hợp lệ! Vui lòng nhập lại (0 - 10).\n");
+                    prompt = $"Nhập lại Điểm {monHoc}: ";
                 }
             }
             return diem;
         }
-
-        private static HocSinh hocTemp = new HocSinh();
     }
 }

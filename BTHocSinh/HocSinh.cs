@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 
 namespace BTHocSinh
 {
@@ -15,11 +14,11 @@ namespace BTHocSinh
 
         public HocSinh(string hoTen, string lopHoc, double dToan, double dLy, double dHoa)
         {
-            this.hoTen = hoTen;
-            this.lopHoc = lopHoc;
-            this.dToan = dToan;
-            this.dLy = dLy;
-            this.dHoa = dHoa;
+            this.HoTen = hoTen;
+            this.LopHoc = lopHoc;
+            this.DToan = dToan;
+            this.DLy = dLy;
+            this.DHoa = dHoa;
         }
 
         public string HoTen
@@ -48,7 +47,7 @@ namespace BTHocSinh
 
         public double DToan
         {
-            get { return dToan; }
+            get => dToan;
             set
             {
                 if (value >= 0 && value <= 10)
@@ -60,7 +59,7 @@ namespace BTHocSinh
 
         public double DLy
         {
-            get { return dLy; }
+            get => dLy;
             set
             {
                 if (value >= 0 && value <= 10)
@@ -72,7 +71,7 @@ namespace BTHocSinh
 
         public double DHoa
         {
-            get { return dHoa; }
+            get => dHoa;
             set
             {
                 if (value >= 0 && value <= 10)
