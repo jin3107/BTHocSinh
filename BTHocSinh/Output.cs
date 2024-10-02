@@ -11,11 +11,15 @@ namespace BTHocSinh
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
 
-            Console.WriteLine("\n\n----- DANH SÁCH SINH VIÊN -----\n");
-            foreach (var hocSinh in danhSach)
+            Console.WriteLine("\n----- DANH SÁCH SINH VIÊN -----\n");
+            for (int i = 0; i < danhSach.Count; i++)
             {
-                HienThiHocSinh(hocSinh);
+                Console.WriteLine($"-- Thông tin Sinh viên thứ {i + 1} --");
+                HienThiHocSinh(danhSach[i]);
             }
+
+            Console.WriteLine("\n");
+            Console.WriteLine(new string('-', 40));
         }
 
         public static void HienThiHocSinh(HocSinh hocSinh)
@@ -29,7 +33,7 @@ namespace BTHocSinh
             Console.WriteLine($"Điểm Lý: {hocSinh.DLy}");
             Console.WriteLine($"Điểm Hóa: {hocSinh.DHoa}");
             Console.WriteLine($"Điểm Trung Bình: {hocSinh.DiemTB():F2}");
-            Console.WriteLine("\n----------------------------------------\n\n");
+            Console.WriteLine("----------------------------------------");
         }
     }
 }
